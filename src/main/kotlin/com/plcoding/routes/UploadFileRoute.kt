@@ -17,9 +17,14 @@ fun Route.helloWorld() {
 fun Route.uploadFile() {
     post("/file") {
         val multipart = call.receiveMultipart()
+        var message = ""
         multipart.forEachPart { part ->
             when (part) {
-                is PartData.FormItem -> Unit
+                is PartData.FormItem ->  {
+                    if(part.name == "message") {
+                        message = part.value
+                    }
+                }
                 is PartData.FileItem -> {
                     if(part.name == "image") {
                         part.save("build/resources/main/static/images/", "myImage.jpg")
@@ -28,6 +33,6 @@ fun Route.uploadFile() {
                 else -> Unit
             }
         }
-        call.respond(HttpStatusCode.OK)
+        call.respond(message = message, status = HttpStatusCode.OK)
     }
 }
