@@ -2,11 +2,9 @@ package com.plcoding.plugins
 
 import com.plcoding.routes.helloWorld
 import com.plcoding.routes.uploadFile
-import io.ktor.server.routing.*
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
+import com.plcoding.routes.uploadTwoFiles
+import io.ktor.server.application.Application
+import io.ktor.server.routing.routing
 
 fun Application.configureRouting() {
     routing {
@@ -14,5 +12,8 @@ fun Application.configureRouting() {
     }
     routing {
         uploadFile()
+    }
+    routing {
+        uploadTwoFiles()
     }
 }
